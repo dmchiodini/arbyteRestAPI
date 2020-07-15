@@ -1,42 +1,18 @@
-const { Router } = require('express');
+const {Router} = require('express')
 const router = new Router();
+const controller = require('../controllers/products')
 
-const routeName = "/products";
+const routName = '/products'
 
-//Lista todos os produtos
-router.get(routeName, (req, res) => {
-    res.json([{ message: "Vai retornar os produtos"}])
-});
+router.get(routName, controller.getAll);
 
-//Pega os dados de um produto
-router.get(`${routeName}/:id`, (req, res) => {
-    res.json({
-        message: "Vai retornar os dados de um produto dado o id",
-        id: req.params.id,
-    });
-});
+router.get(`${routName}/:id`, controller.getById);
 
-//Cria um produto
-router.post(routeName, (req, res) => {
-    const product = {
-        name: req.body.name,
-        price: req.body.price
-    }
-    res.status(201).json({
-        message: 'Insere um produto',
-        createdProduct: product
-    });
-});
+router.post(routName, controller.create);
 
-//Edita os dados de um produto
-router.patch(`${routeName}/:id`, (req, res) => {
-    res.json({
-        message: "Vai editar os dados de um produto dado um id",
-        id: req.params.id,
-    });
-});
+router.patch(`${routName}/:id`, controller.update)
+    
+router.delete(`${routName}/:id`, controller.del)
 
-//Deleta um produto
-router.delete(`${routeName}/:id`, (req, res) => res.status(204).end());
+module.exports = router
 
-module.exports = router;
