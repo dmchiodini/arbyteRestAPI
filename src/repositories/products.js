@@ -27,7 +27,7 @@ const update = (id, product) => {
 //DELETE FROM products WHERE id = ?
 const del = (id) => {
     return knex(tableName)
-        .where({id: id})
+        .where({ id: id })
         .del()
 }
 
