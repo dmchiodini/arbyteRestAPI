@@ -1,45 +1,19 @@
 const {Router} = require('express')
 const router = new Router();
+const controller = require('../controllers/orders')
 
-const routName = '/orders'
-//Lista todos os pedidos
-router.get(routName, (req, res) => {
-    res.json([{
-        message: 'Vai retornar todos os pedidos',
-    }])
-});
+const routeName = '/orders';
 
-//Retorna um pedido expecifico
-router.get(`${routName}/:id`, (req, res) => {
-        res.json([{message: 'Vai retornar os dados de um pedidos com um id', 
-        id: req.params.id,
-    }])
-});
 
-// Cria um pedido novo
-router.post(routName, (req, res) => {
-    const pedido = {
-        idProduto: req.body.idProduto,
-        quantidade: req.body.quantidade
-    }
+router.get(routeName, controller.getAll);
 
-    res.status(201).json({
-        message: 'Vai criar um pedido',
-        pedidoCriado: pedido
-    });
-});
+router.get(`${routeName}/:id`, controller.getById);
 
-//Edita os dados de um pedido
-router.patch(`${routName}/:id`, (req, res) => {
-    res.json({
-        message: 'Vai editar od dados de um pedido baseado em um id',
-        id: req.params.id,
-    })
-})
+router.post(routeName, controller.create);
 
-//Deleta um pedido baseado no id
-router.delete(`${routName}/:id`, (req, res) => {
-    res.status(204).end()
-})
+router.patch(`${routeName}/:id`, controller.update)
 
-module.exports = router
+//delete um produto
+router.delete(`${routeName}/:id`, (req,res) => res.status(204).end())
+
+module.exports = router;

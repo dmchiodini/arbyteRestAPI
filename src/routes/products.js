@@ -1,18 +1,19 @@
-const {Router} = require('express')
+const {Router} = require('express');
 const router = new Router();
-const controller = require('../controllers/products')
+const controller = require('../controllers/products');
+const authenticate = require('../routes/middlewares/authenticate');
 
-const routName = '/products'
+const routeName = '/products';
 
-router.get(routName, controller.getAll);
+router.get(routeName, controller.getAll);
 
-router.get(`${routName}/:id`, controller.getById);
+router.get(`${routeName}/:id`, controller.getById);
 
-router.post(routName, controller.create);
+router.post(routeName, authenticate, controller.create);
 
-router.patch(`${routName}/:id`, controller.update)
+router.patch(`${routeName}/:id`, controller.update);
     
-router.delete(`${routName}/:id`, controller.del)
+router.delete(`${routeName}/:id`, controller.del);
 
-module.exports = router
+module.exports = router;
 
