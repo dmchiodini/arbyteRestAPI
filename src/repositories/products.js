@@ -1,4 +1,4 @@
-const knex = require("../../dataBase");
+const knex = require("../../database");
 const moment = require('moment');
 const tableName = "products"
 

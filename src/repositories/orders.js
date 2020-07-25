@@ -1,4 +1,4 @@
-const knex = require('../../dataBase')
+const knex = require('../../database')
 const Order = require('../models/Order')
 const orders = require('../services/orders')
 const tableName = 'orders'
