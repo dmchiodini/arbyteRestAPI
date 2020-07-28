@@ -15,7 +15,9 @@ const getById = (id) => {
 //INSERT INTO products (name, price) VALUES (?, ?)
 const create = (product) => {
     return knex(tableName)
-    .insert(product).then((inserted) => inserted)
+        .returning('id')
+        .insert(product)
+        .then(([inserted]) => inserted)
 };
 
 //UPDATE products SET name =?, price=? WHERE id=?

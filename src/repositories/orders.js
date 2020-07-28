@@ -1,6 +1,7 @@
 const knex = require('../../database')
 const Order = require('../models/Order')
 const orders = require('../services/orders')
+const { returning } = require('../../database')
 const tableName = 'orders'
 
 /* SELECT * FROM orders */
@@ -11,13 +12,13 @@ const getAll = async () => {
 
 /* SELECT * FROM orders WHERE id = ? */
 const getById = async (id) => {
-   const [order] = await knex(tableName).where({id: id})
+   const order = await knex(tableName).where({id: id})
    return new Order(order);
 }
 
 /* INSERT INTO orders (product_id, ...) VALUES (?, ...) */
 const create = async (order) => {
-   const [id] = await knex(tableName).insert(order);
+   const [id] = await knex(tableName).returning('id').insert(order);
    return id;
 };
 
